@@ -1,1 +1,12 @@
 ﻿test.txt
+g
+g
+g
+g
+g
+door
+true
+g
+wa
+wa
+wa
