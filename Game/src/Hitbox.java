@@ -1,51 +1,41 @@
+import java.awt.Point;
 import java.awt.Rectangle;
 
-//TODO: switch everything over to work with rectangles and points! Also double check design doc
-public class Hitbox extends Rectangle{
-	private Location location;
-	
-	
-	public Hitbox(Rectangle d, Location l){
-		super(d);
-		location = l;
+public class Hitbox extends Rectangle {
+
+	public Hitbox(Rectangle rec) {
+		super(rec);
 	}
-	
-	public Hitbox(int width, int height, double x, double y){
-		super(width, height);
-		location = new Location(x, y);
+
+	public Hitbox(int x, int y, int width, int height) {
+		super(x, y, width, height);
 	}
-	
-	
-	public void setLocation(Location location){
-		this.location = location;
+
+	public Point getCenter() {
+		return new Point((int) super.getCenterX(), (int) super.getCenterY());
 	}
-	public Location getCenter(){
-		return new Location((double)super.getWidth() / 2 + location.getX(),(double)super.getHeight() / 2 + location.getY());
+
+	public double distanceFrom(Hitbox h) {
+		Rectangle r = super.intersection(h);
+		return Math.sqrt(r.getHeight() * r.getHeight() + r.getWidth() * r.getWidth());
 	}
-	
-	//TODO fix the following 2 methods
-	public double distanceFrom(Hitbox h){
-		return Math.sqrt(((getCenter().getX() - h.getCenter().getX()) * (getCenter().getX() - h.getCenter().getX())) +   ((getCenter().getY() - h.getCenter().getY()) * (getCenter().getY() - h.getCenter().getY())));
-	}
-	public boolean isTouching(Hitbox h){
+
+	public boolean isTouching(Hitbox h) {
 		return super.intersects(h);
 	}
-	
-	
-	
-	
-	public String toString(){
-		return "Width: " + super.getWidth() + " Height: " + super.getHeight() + " X: " + location.getX() + " Y: " + location.getY();
+
+	public String toString() {
+		return "Width: " + super.getWidth() + " Height: " + super.getHeight() + " X: " + getX() + " Y: " + getY();
 	}
-	
-	
-	public static void main(String [] args){
-		Hitbox h = new Hitbox(1, 1, 10.0, 0);
+
+	public static void main(String[] args) {
+		Hitbox h = new Hitbox(2, 0, 1, 3);
 		System.out.println(h);
 		System.out.println(h.getCenter());
-		Hitbox h2 = new Hitbox(1, 1, 10, 20);
+		Hitbox h2 = new Hitbox(2, 3, 1, 5);
 		System.out.println(h.distanceFrom(h2));
 		System.out.println(h.isTouching(h2));
+		System.out.println(h.getX());
 	}
-	
+
 }
