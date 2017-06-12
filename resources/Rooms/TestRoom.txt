@@ -1,0 +1,10 @@
+g
+g
+door
+false
+wa
+wa
+wa
+wa
+wa
+wa
