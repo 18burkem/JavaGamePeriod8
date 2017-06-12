@@ -3,18 +3,6 @@ import java.awt.Rectangle;
 
 public class Hitbox extends Rectangle {
 
-	
-	public static final int NONE = 0;
-	public static final int NORTH = 1;
-	public static final int NORTHEAST = 2;
-	public static final int EAST = 3;
-	public static final int SOUTHEAST = 4;
-	public static final int SOUTH = 5;
-	public static final int SOUTHWEST = 6;
-	public static final int WEST = 7;
-	public static final int NORTHWEST = 8;
-	
-	
 	public Hitbox(Rectangle rec) {
 		super(rec);
 	}
@@ -25,18 +13,6 @@ public class Hitbox extends Rectangle {
 
 	public Point getCenter() {
 		return new Point((int) super.getCenterX(), (int) super.getCenterY());
-	}
-	
-	public int getIntX(){
-		return super.x;
-	}
-	public int getIntY(){
-		return super.y;
-	}
-	
-	public void move(int deltaX, int deltaY){
-		x += deltaX;
-		y += deltaY;
 	}
 
 	public double distanceFrom(Hitbox h) {
@@ -51,6 +27,18 @@ public class Hitbox extends Rectangle {
 	public String toString() {
 		return "Width: " + super.getWidth() + " Height: " + super.getHeight() + " X: " + getX() + " Y: " + getY();
 	}
+	
+	public int getIntX(){
+		return super.x;
+	}
+	
+	public int getIntY(){
+		return super.y;
+	}
+	
+	public void move(int deltaX, int deltaY){
+		setLocation(getIntX()+deltaX, getIntY()+deltaY);
+	}
 
 	public static void main(String[] args) {
 		Hitbox h = new Hitbox(2, 0, 1, 3);
@@ -59,8 +47,6 @@ public class Hitbox extends Rectangle {
 		Hitbox h2 = new Hitbox(2, 3, 1, 5);
 		System.out.println(h.distanceFrom(h2));
 		System.out.println(h.isTouching(h2));
-		System.out.println(h.getX());
-		h.move(5, 0);
 		System.out.println(h.getX());
 	}
 

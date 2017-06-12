@@ -34,16 +34,22 @@ public class Room {
 		for(int row = 0; row < rows;row++){
 			for(int col = 0; col < cols&&sc.hasNextLine();col++){
 				String nextLine = sc.nextLine();
-				if(nextLine.matches(GRASS))tiles[row][col]= new Tile("Images/"+GRASS, true);
-				else if(nextLine.matches(WALL))tiles[row][col]= new Tile("Images/"+WALL, false);
-				else if(nextLine.matches(DIRT))tiles[row][col]= new Tile("Images/"+DIRT, true);
-				else if(nextLine.matches(WATER))tiles[row][col]= new Tile("Images/"+WATER, false);
+				if(nextLine.matches(GRASS))tiles[row][col]= new Tile("resources/Images/"+GRASS+".png", true);
+				else if(nextLine.matches(WALL))tiles[row][col]= new Tile("resources/Images/"+WALL+".png", false);
+				else if(nextLine.matches(DIRT))tiles[row][col]= new Tile("resources/Images/"+DIRT+".png", true);
+				else if(nextLine.matches(WATER))tiles[row][col]= new Tile("resources/Images/"+WATER+".png", false);
 				else if(nextLine.matches(DOOR)){
 					boolean isLocked = sc.nextBoolean();
-					tiles[row][col]= new Door("Images/"+DOOR+isLocked, isLocked, new File(sc.nextLine()));
+					tiles[row][col]= new Door("resources/Images/"+DOOR+isLocked+".png", isLocked, new File(sc.nextLine()));
 				}
 				else System.out.println("Row: "+row+" Column: "+col+" has the String \""+nextLine+"\"");
 			}
+		}
+		while(sc.hasNextLine()){
+			String nextLine = sc.nextLine();
+			if(false)
+				return;
+			//TODO make this not bad
 		}
 	}
 	
@@ -63,6 +69,10 @@ public class Room {
 			str+= "\n";
 		}
 		return str;
+	}
+	
+	public Tile getTile(int row, int col){
+		return tiles[row][col];
 	}
 	
 	public static void main(String[] gusFailedTheFinal){
