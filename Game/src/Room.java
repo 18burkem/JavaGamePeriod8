@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Room {
@@ -10,6 +11,8 @@ public class Room {
 //	Door
 //	Water
 
+	private int row;
+	private int col;
 	private Scanner sc;
 	private Tile[][] tiles;
 	private final String GRASS = "g";
@@ -20,6 +23,8 @@ public class Room {
 	
 	
 	public Room(File f, int rows, int cols) {
+		this.row = row;
+		this.col = col;
 		tiles = new Tile[rows][cols];
 		try {
 			sc = new Scanner(f);
@@ -34,22 +39,26 @@ public class Room {
 				else if(nextLine.matches(DIRT))tiles[row][col]= new Tile("Images/"+DIRT, true);
 				else if(nextLine.matches(WATER))tiles[row][col]= new Tile("Images/"+WATER, false);
 				else if(nextLine.matches(DOOR)){
-					tiles[row][col]= new Door("Images/"+DOOR, sc.nextLine().equals("true"), new File("test"), 4);
+					boolean isLocked = sc.nextBoolean();
+					tiles[row][col]= new Door("Images/"+DOOR+isLocked, isLocked, new File(sc.nextLine()));
 				}
-				else System.out.println("Row: "+row+" Column: "+col+" has the Strng \""+nextLine+"\"");
+				else System.out.println("Row: "+row+" Column: "+col+" has the String \""+nextLine+"\"");
 			}
 		}
+	}
+	
+	public boolean isWalkable(int row, int col){
+		if(row>-1&&row<this.row&&col>-1&&col<this.col){
+			return tiles[row][col].isWalkable();
+		}
+		return false;
 	}
 	
 	public String toString(){
 		String str = "";
 		for(Tile[] tileRow: tiles){
 			for(Tile tile: tileRow){
-				if(tile.isWalkable()){
-					str += "T";
-				}
-				else
-					str += "F";
+				str += tile.toString() + "\t";
 			}
 			str+= "\n";
 		}
@@ -57,8 +66,9 @@ public class Room {
 	}
 	
 	public static void main(String[] gusFailedTheFinal){
-		Room test = new Room(new File("resources/testroom1.txt"), 7, 7);
+		Room test = new Room(new File("Files/TestRoom.txt"), 3, 3);
 		System.out.println(test);
+		System.out.println(test.isWalkable(2, 2));
 	}
 
 }

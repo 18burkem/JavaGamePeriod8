@@ -27,8 +27,8 @@ public abstract class Projectile {
 	}
 	
 	public void updateLocation(){
-		if(direction == 0){
-			hitBox.setLocation((int)hitBox.getX(), (int)(hitBox.getY() - speed));
+		switch(direction){
+		case 1: 
 		}
 	}
 }
