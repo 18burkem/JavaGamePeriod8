@@ -34,5 +34,9 @@ public class Player extends Character implements Damageable{
 	public void recieveDamage(int damage) {
 		super.health -= damage;
 	}
+
+	public String update(int playerDistance, int playerDirection){
+		return null;
+	}
 	
 }

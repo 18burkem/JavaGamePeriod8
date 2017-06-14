@@ -7,42 +7,29 @@ public class Enemy extends Character implements Damageable{
 	private int chaseDistance;
 	private int patrolRight;
 	private int patrolDown;
+	private int patrolCount;
+	private int attackCooldown;
 	
 	
 	
 	
 	public Enemy(File f) {
 		super(f);
-		willChase = sc.nextBoolean();
+		willChase = sc.nextBoolean();sc.nextLine();
 		if(willChase){
-			chaseDistance = sc.nextInt();
+			chaseDistance = sc.nextInt();//sc.nextLine();
+			System.out.println(chaseDistance);
 		}
+		willPatrol = sc.nextBoolean();sc.nextLine();
 		if(willPatrol){
-			patrolRight = sc.nextInt();
-			patrolDown = sc.nextInt();
+			patrolRight = sc.nextInt();sc.nextLine();
+			patrolDown = sc.nextInt();sc.nextLine();
 		}
 		
 	}
 	
 	public void attack(){
-		if(hitbox.intersects(r))
-	}
-	
-	public void patrol(int rows, int cols){
-		hitbox.setLocation(0, 0);//figure out where to move when and movement as a whole
-	}
-	
-	public void chase(){
 		
-	}
-
-	public void move(int direction) {
-		if(willChase){
-			chase();
-		}
-		if(willPatrol){
-			patrol();
-		}
 	}
 	
 	public Hitbox getHitbox(){
@@ -66,12 +53,44 @@ public class Enemy extends Character implements Damageable{
 	}
 	
 	public String toString(){
-		return super.toString()+""
+		return super.toString()+"";
 	}
 	
-	public static void main(String arg00000s){
-		Enemy kendall = new Enemy(new File("Files/TestCharacter.txt"));
-		System.out.println(kendall);
+	public String update(int playerDistance, int playerDirection) {
+		System.out.println(patrolCount+" "+patrolRight+" "+patrolDown);
+		if(health<1){
+			return "GAHHHH... am ded";
+		}
+		if(willChase && playerDistance <= 100*chaseDistance){
+			direction = playerDirection;
+			move();
+		} else if(willPatrol){
+			if(patrolCount < patrolRight){
+				direction = EAST;
+			} else if(patrolCount < patrolRight + patrolDown){
+				direction = SOUTH;
+			} else if(patrolCount < 2*patrolRight+patrolDown){
+				direction = WEST;
+			} else if(patrolCount < 2*patrolRight+2*patrolDown){
+				direction = NORTH;
+			} else {
+				direction = EAST;
+				patrolCount = 1;
+			}
+			patrolCount++;
+			move();
+		}
+		return null;
 	}
+	
+	public static void main(String args){
+		Enemy kendall = new Enemy(new File("resources/Characters/TestEnemy.txt"));
+		System.out.println(kendall);
+		for(int i = 0; i < 20; i++){
+			kendall.update(10, NORTH);
+		}
+	}
+
+	
 
 }

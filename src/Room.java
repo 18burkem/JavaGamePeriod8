@@ -85,8 +85,12 @@ public class Room {
 	
 	public static void main(String[] gusFailedTheFinal){
 		Room test = new Room(new File("resources/Rooms/TestRoom.txt"), 3, 3);
-		System.out.println(test);
-//		System.out.println(test.isWalkable(2, 2));
+//		System.out.println(test);
+		for(Character c: test.getCharacters()){
+			System.out.println(c.hitbox);
+			System.out.println(c.update(1, Character.EAST));
+			System.out.println(c.hitbox);
+		}
 	}
 
 }

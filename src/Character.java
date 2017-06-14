@@ -9,15 +9,15 @@ public abstract class Character {
 	private ArrayList<Enemy> npcList = new ArrayList<Enemy>();
 	private Boss boss;
 	
-	protected final int NONE = 0;
-	protected final int NORTH = 1;
-	protected final int NORTHEAST = 2;
-	protected final int EAST = 3;
-	protected final int SOUTHEAST = 4;
-	protected final int SOUTH = 5;
-	protected final int SOUTHWEST = 6;
-	protected final int WEST = 7;
-	protected final int NORTHWEST = 8;
+	public static final int NONE = 0;
+	public static final int NORTH = 1;
+	public static final int NORTHEAST = 2;
+	public static final int EAST = 3;
+	public static final int SOUTHEAST = 4;
+	public static final int SOUTH = 5;
+	public static final int SOUTHWEST = 6;
+	public static final int WEST = 7;
+	public static final int NORTHWEST = 8;
 	
 	protected Scanner sc;
 	protected String name;
@@ -26,7 +26,7 @@ public abstract class Character {
 	protected int speed;
 	protected int diagonalSpeed = (int)(speed * Math.sqrt(2));
 	protected String imgLocation;
-	protected int direction;
+	protected int direction = NORTH;
 	
 	public Character(){}
 	
@@ -41,10 +41,6 @@ public abstract class Character {
 		health = sc.nextInt();sc.nextLine();
 		speed = sc.nextInt();sc.nextLine();
 		imgLocation = sc.nextLine();
-		
-		while(sc.hasNextLine()&&sc.nextLine()!=""){
-			enemyList.add(new Enemy(new File(sc.nextLine())));
-		}
 		
 	}
 	
@@ -61,12 +57,18 @@ public abstract class Character {
 		}
 	}
 	
+	public abstract String update(int playerDistance, int playerDirection);
+	
 	public Hitbox getHitbox(){
 		return hitbox;
 	}
 	
 	public void setHitbox(Hitbox hitbox){
 		this.hitbox = hitbox;
+	}
+	
+	public File getImg(){
+		return new File(imgLocation+"/"+direction+".png");
 	}
 	
 	public String toString(){

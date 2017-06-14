@@ -1,5 +1,5 @@
 Joe Schmoe
 5 5 3 2
 20
-1.0
-resources/Images/JoeSchmoe
+10
+resources/Images/JoeSchmoe.png

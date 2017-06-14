@@ -8,3 +8,12 @@ wa
 wa
 wa
 wa
+
+e
+resources/Characters/TestEnemy.txt
+e
+resources/Characters/TestEnemy.txt
+n
+resources/Characters/TestNPC.txt
+n
+resources/Characters/TestNPC.txt

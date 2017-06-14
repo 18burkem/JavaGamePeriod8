@@ -29,15 +29,16 @@ public class Hitbox extends Rectangle {
 	}
 	
 	public int getIntX(){
-		return super.x;
+		return x;
 	}
 	
 	public int getIntY(){
-		return super.y;
+		return y;
 	}
 	
 	public void move(int deltaX, int deltaY){
-		setLocation(getIntX()+deltaX, getIntY()+deltaY);
+		x+=deltaX; 
+		y+=deltaY;
 	}
 
 	public static void main(String[] args) {
