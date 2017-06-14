@@ -5,26 +5,24 @@ import java.util.Scanner;
 
 public class Room {
 
-//	Wall
-//	Grass
-//	Dirt
-//	Door
-//	Water
-
 	private int row;
 	private int col;
 	private Scanner sc;
 	private Tile[][] tiles;
+	private ArrayList<Character> characterList = new ArrayList<Character>();
 	private final String GRASS = "g";
 	private final String WALL = "w";
 	private final String DIRT = "d";
 	private final String WATER = "wa";
 	private final String DOOR = "door";
+	private final String ENEMY = "e";
+	private final String BOSS = "b";
+	private final String NPC = "n";
 	
 	
 	public Room(File f, int rows, int cols) {
-		this.row = row;
-		this.col = col;
+		this.row = rows;
+		this.col = cols;
 		tiles = new Tile[rows][cols];
 		try {
 			sc = new Scanner(f);
@@ -45,9 +43,16 @@ public class Room {
 				else System.out.println("Row: "+row+" Column: "+col+" has the String \""+nextLine+"\"");
 			}
 		}
+		sc.nextLine();
 		while(sc.hasNextLine()){
 			String nextLine = sc.nextLine();
-			if()
+			if(nextLine.matches(ENEMY)){
+				characterList.add(new Enemy(new File(sc.nextLine())));
+			} else if(nextLine.matches(BOSS)){
+				characterList.add(new Boss(new File(sc.nextLine())));
+			} else if(nextLine.matches(NPC)){
+				characterList.add(new NPC(new File(sc.nextLine())));
+			}
 		}
 	}
 	
@@ -66,6 +71,7 @@ public class Room {
 			}
 			str+= "\n";
 		}
+		str += characterList.toString();
 		return str;
 	}
 	
@@ -73,10 +79,14 @@ public class Room {
 		return tiles[row][col];
 	}
 	
+	public ArrayList<Character> getCharacters(){
+		return characterList;
+	}
+	
 	public static void main(String[] gusFailedTheFinal){
-		Room test = new Room(new File("Files/TestRoom.txt"), 3, 3);
+		Room test = new Room(new File("resources/Rooms/TestRoom.txt"), 3, 3);
 		System.out.println(test);
-		System.out.println(test.isWalkable(2, 2));
+//		System.out.println(test.isWalkable(2, 2));
 	}
 
 }
