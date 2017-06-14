@@ -2,35 +2,20 @@ import java.io.File;
 
 public class Door extends Tile {
 
-	private File room;
-	private int key;
+	private boolean isLocked;
 	
-	
-	public Door(String imgLocation, boolean isLocked, File nextRoom, int key) {
+	public Door(String imgLocation, boolean isLocked, File nextRoom) {
 		super(imgLocation, !isLocked);
-		this.room = nextRoom;
+		this.isLocked = isLocked;
 	}
 	
-	public void setRoomFile(File room){
-		this.room = room;
+	public boolean isLocked(){
+		return isLocked;
 	}
-	public File getRoomFile(){
-		return room;
-	}
-	public int getKey(){
-		return key;
-	}
-	public void setKey(int key){
-		this.key = key;
-	}
-	public String toString(){
-		return "Leads to: " + room;
+	
+	public void unlock(){
+		isLocked = false;
+		super.setWalkable(true);
 	}
 
-	
-	public static void main(String[] args){
-		Door a = new Door(null, true, new File("test"), 4);
-		System.out.println(a);
-	}
-	
 }

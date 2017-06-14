@@ -14,16 +14,20 @@ public class Tile {
 
 	}
 
-	public boolean isWalkable(){
-		return isWalkable;
-	}
-	
 	public void setImageLocation(String imgLocation) {
 		this.imgLocation = imgLocation;
 	}
 	
 	public String toString(){
 		return "Walkable: " + isWalkable + ", Image Location: " + imgLocation;
+	}
+	
+	public void setWalkable(boolean isWalkable){
+		this.isWalkable = isWalkable;
+	}
+	
+	public boolean isWalkable(){
+		return isWalkable;
 	}
 
 	

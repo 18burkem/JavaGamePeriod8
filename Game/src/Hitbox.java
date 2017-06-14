@@ -27,6 +27,18 @@ public class Hitbox extends Rectangle {
 	public String toString() {
 		return "Width: " + super.getWidth() + " Height: " + super.getHeight() + " X: " + getX() + " Y: " + getY();
 	}
+	
+	public int getIntX(){
+		return super.x;
+	}
+	
+	public int getIntY(){
+		return super.y;
+	}
+	
+	public void move(int deltaX, int deltaY){
+		setLocation(getIntX()+deltaX, getIntY()+deltaY);
+	}
 
 	public static void main(String[] args) {
 		Hitbox h = new Hitbox(2, 0, 1, 3);
