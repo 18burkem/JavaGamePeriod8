@@ -3,13 +3,10 @@ import java.io.File;
 public class Tile {
 	private boolean isWalkable;
 	private String imgLocation;
-	private Hitbox h;
-	public static final int TILESIZE = 100;
-	
-	public Tile(String imgLocation, boolean isWalkable, Hitbox hitbox) {
+
+	public Tile(String imgLocation, boolean isWalkable) {
 		this.imgLocation = imgLocation;
 		this.isWalkable = isWalkable;
-		h = hitbox;
 	}
 
 	public String getImageLocation() {
@@ -32,9 +29,6 @@ public class Tile {
 	public boolean isWalkable(){
 		return isWalkable;
 	}
-	
-	public Hitbox getHitbox(){
-		return h;
-	}
+
 	
 }

@@ -7,8 +7,8 @@ public class Player extends Character implements Damageable{
 		super.name = name;
 		super.hitbox = new Hitbox(x, x, 2, 2);
 		super.health = health;
-		super.speed = 3;
-		super.imgLocation = imgLocation;
+		super.speed = 1;
+		super.imgLocation = "resources/Images/Player";
 	}
 
 	public Hitbox getHitbox() {
@@ -35,6 +35,10 @@ public class Player extends Character implements Damageable{
 	public static void main(String [] args){
 //		Player p = new Player("Test");
 		
+	}
+
+	public String update(int playerDistance, int playerDirection) {
+		return null;
 	}
 	
 }

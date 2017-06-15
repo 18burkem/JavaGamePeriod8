@@ -9,7 +9,6 @@ public class Room {
 	private int col;
 	private Scanner sc;
 	private Tile[][] tiles;
-	private Player player;
 	private ArrayList<Character> characterList = new ArrayList<Character>();
 	private final String GRASS = "g";
 	private final String WALL = "w";
@@ -19,10 +18,10 @@ public class Room {
 	private final String ENEMY = "e";
 	private final String BOSS = "b";
 	private final String NPC = "n";
-
-	public Room(File f, int rows, int cols, Player p) {
+	
+	
+	public Room(File f, int rows, int cols) {
 		this.row = rows;
-		this.player = p;
 		this.col = cols;
 		tiles = new Tile[rows][cols];
 		try {
@@ -30,79 +29,68 @@ public class Room {
 		} catch (FileNotFoundException kendallThinksThereIsSomethingWrongWithThisSinceThereIsNoPun) {
 			kendallThinksThereIsSomethingWrongWithThisSinceThereIsNoPun.printStackTrace();
 		}
-		for (int row = 0; row < rows; row++) {
-			for (int col = 0; col < cols && sc.hasNextLine(); col++) {
+		for(int row = 0; row < rows;row++){
+			for(int col = 0; col < cols&&sc.hasNextLine();col++){
 				String nextLine = sc.nextLine();
-				if (nextLine.matches(GRASS))
-					tiles[row][col] = new Tile("resources/Images/" + GRASS + ".png", true,
-							new Hitbox(col * Tile.TILESIZE, row * Tile.TILESIZE, Tile.TILESIZE, Tile.TILESIZE));
-				else if (nextLine.matches(WALL))
-					tiles[row][col] = new Tile("resources/Images/" + WALL + ".png", false,
-							new Hitbox(col * Tile.TILESIZE, row * Tile.TILESIZE, Tile.TILESIZE, Tile.TILESIZE));
-				else if (nextLine.matches(DIRT))
-					tiles[row][col] = new Tile("resources/Images/" + DIRT + ".png", true,
-							new Hitbox(col * Tile.TILESIZE, row * Tile.TILESIZE, Tile.TILESIZE, Tile.TILESIZE));
-				else if (nextLine.matches(WATER))
-					tiles[row][col] = new Tile("resources/Images/" + WATER + ".png", false,
-							new Hitbox(col * Tile.TILESIZE, row * Tile.TILESIZE, Tile.TILESIZE, Tile.TILESIZE));
-				else if (nextLine.matches(DOOR)) {
+				if(nextLine.matches(GRASS))tiles[row][col]= new Tile("resources/Images/"+GRASS+".png", true);
+				else if(nextLine.matches(WALL))tiles[row][col]= new Tile("resources/Images/"+WALL+".png", false);
+				else if(nextLine.matches(DIRT))tiles[row][col]= new Tile("resources/Images/"+DIRT+".png", true);
+				else if(nextLine.matches(WATER))tiles[row][col]= new Tile("resources/Images/"+WATER+".png", false);
+				else if(nextLine.matches(DOOR)){
 					boolean isLocked = sc.nextBoolean();
-					tiles[row][col] = new Door("resources/Images/" + DOOR + isLocked + ".png", isLocked,
-							new File(sc.nextLine()),
-							new Hitbox(col * Tile.TILESIZE, row * Tile.TILESIZE, Tile.TILESIZE, Tile.TILESIZE));
-				} else
-					System.out.println("Row: " + row + " Column: " + col + " has the String \"" + nextLine + "\"");
+					tiles[row][col]= new Door("resources/Images/"+DOOR+isLocked+".png", isLocked, new File(sc.nextLine()));
+				}
+				else System.out.println("Row: "+row+" Column: "+col+" has the String \""+nextLine+"\"");
 			}
 		}
-		// TODO gus is working on this now
-		// sc.nextLine();
-		// while(sc.hasNextLine()){
-		// String nextLine = sc.nextLine();
-		// if(nextLine.matches(ENEMY)){
-		// characterList.add(new Enemy(new File(sc.nextLine())));
-		// } else if(nextLine.matches(BOSS)){
-		// characterList.add(new Boss(new File(sc.nextLine())));
-		// } else if(nextLine.matches(NPC)){
-		// characterList.add(new NPC(new File(sc.nextLine())));
-		// }
-		// }
+		sc.nextLine();
+		while(sc.hasNextLine()){
+			String nextLine = sc.nextLine();
+			if(nextLine.matches(ENEMY)){
+				characterList.add(new Enemy(new File(sc.nextLine())));
+			} else if(nextLine.matches(BOSS)){
+				characterList.add(new Boss(new File(sc.nextLine())));
+			} else if(nextLine.matches(NPC)){
+				characterList.add(new NPC(new File(sc.nextLine())));
+			}
+		}
 	}
-
-	public boolean isWalkable(int row, int col) {
-		if (row > -1 && row < this.row && col > -1 && col < this.col) {
+	
+	public boolean isWalkable(int row, int col){
+		if(row>-1&&row<this.row&&col>-1&&col<this.col){
 			return tiles[row][col].isWalkable();
 		}
 		return false;
 	}
-
-	public String toString() {
+	
+	public String toString(){
 		String str = "";
-		for (Tile[] tileRow : tiles) {
-			for (Tile tile : tileRow) {
+		for(Tile[] tileRow: tiles){
+			for(Tile tile: tileRow){
 				str += tile.toString() + "\t";
 			}
-			str += "\n";
+			str+= "\n";
 		}
 		str += characterList.toString();
 		return str;
 	}
-
-	public Tile getTile(int row, int col) {
+	
+	public Tile getTile(int row, int col){
 		return tiles[row][col];
 	}
-
-	public ArrayList<Character> getCharacters() {
+	
+	public ArrayList<Character> getCharacters(){
 		return characterList;
 	}
-
-	public Player getPlayer() {
-		return player;
-	}
-
-	public static void main(String[] gusFailedTheFinal) {
-		// Room test = new Room(new File("resources/Rooms/TestRoom.txt"), 3, 3);
-		// System.out.println(test);
-		// System.out.println(test.isWalkable(2, 2));
+	
+	public static void main(String[] gusFailedTheFinal){
+		Room test = new Room(new File("resources/Rooms/TestRoom.txt"), 3, 3);
+//		System.out.println(test);
+		for(Character c: test.getCharacters()){
+			System.out.println(c.hitbox);
+			System.out.println(c.update(1, Character.EAST));
+			System.out.println(c.hitbox);
+		}
 	}
 
 }
