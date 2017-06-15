@@ -31,7 +31,7 @@ public class RoomPanel extends JPanel {
 		}
 		try {
 			g2.drawImage(ImageIO.read(new File(currentRoom.getPlayer().getImageLocation())), null,
-					currentRoom.getPlayer().getHitbox().getIntX(), currentRoom.getPlayer().getHitbox().getIntY() );
+					currentRoom.getPlayer().getHitbox().x, currentRoom.getPlayer().getHitbox().y );
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

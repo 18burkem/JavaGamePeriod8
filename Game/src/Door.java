@@ -4,8 +4,8 @@ public class Door extends Tile {
 
 	private boolean isLocked;
 	
-	public Door(String imgLocation, boolean isLocked, File nextRoom) {
-		super(imgLocation, !isLocked);
+	public Door(String imgLocation, boolean isLocked, File nextRoom, Hitbox h) {
+		super(imgLocation, !isLocked, h);
 		this.isLocked = isLocked;
 	}
 	
