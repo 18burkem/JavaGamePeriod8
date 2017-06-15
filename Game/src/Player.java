@@ -7,7 +7,7 @@ public class Player extends Character implements Damageable{
 		super.name = name;
 		super.hitbox = new Hitbox(x, x, 2, 2);
 		super.health = health;
-		super.speed = 1;
+		super.speed = 50;
 		super.imgLocation = "resources/Images/Player";
 	}
 

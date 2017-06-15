@@ -44,6 +44,11 @@ public class RoomPanel extends JPanel {
 			}
 			if(speach != null)g2.drawString(speach, c.getX(), c.getY()+10);
 		}
+		try {
+            g2.drawImage(ImageIO.read(player.getImg()), null, player.getHitbox().getIntX(), player.getY());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 	}
 
 }

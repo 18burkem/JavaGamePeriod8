@@ -76,6 +76,11 @@ public abstract class Character {
 		return hitbox.y;
 	}
 	
+	public void setDirection(int direction) {
+		this.direction = direction;
+		
+	}
+	
 	public String toString(){
 		return "Name: "+name+"\tHealth: "+health+"\tSpeed: "+speed+"\tImgLocation: "+imgLocation;
 	}

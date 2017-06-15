@@ -57,7 +57,7 @@ public class Enemy extends Character implements Damageable{
 	}
 	
 	public String update(int playerDistance, int playerDirection) {
-		System.out.println(patrolCount+" "+patrolRight+" "+patrolDown);
+//		System.out.println(patrolCount+" "+patrolRight+" "+patrolDown);
 		if(health<1){
 			return "GAHHHH... am ded";
 		}
