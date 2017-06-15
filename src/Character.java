@@ -5,10 +5,6 @@ import java.util.Scanner;
 
 public abstract class Character {
 	
-	private ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
-	private ArrayList<Enemy> npcList = new ArrayList<Enemy>();
-	private Boss boss;
-	
 	public static final int NONE = 0;
 	public static final int NORTH = 1;
 	public static final int NORTHEAST = 2;
@@ -68,7 +64,16 @@ public abstract class Character {
 	}
 	
 	public File getImg(){
-		return new File(imgLocation+"/"+direction+".png");
+		//TODO: have different images for different directions: return new File(imgLocation+"/"+direction+".png");
+		return new File(imgLocation+".png");
+	}
+	
+	public int getX(){
+		return hitbox.x;
+	}
+	
+	public int getY(){
+		return hitbox.y;
 	}
 	
 	public String toString(){

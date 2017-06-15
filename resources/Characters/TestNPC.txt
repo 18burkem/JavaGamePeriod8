@@ -1,6 +1,6 @@
 Joe Schmoe
-5 5 3 2
-20
+50 50 30 20
+6
 10
-Files/JoeSchmoe
+resources/Images/NPC
 I used to be a warrior like you, until I took an arrow to the knee.

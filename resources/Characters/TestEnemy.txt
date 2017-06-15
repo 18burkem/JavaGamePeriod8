@@ -1,8 +1,9 @@
 Joe Schmoe
-5 5 3 2
-20
-10
-resources/Images/JoeSchmoe.png
-true
-5
+50 500 30 20
+6
+100
+resources/Images/Enemy
 false
+true
+3
+2

@@ -1,19 +1,25 @@
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.Timer;
 
-public class TestDisplay extends JFrame {
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 
-	private JPanel contentPane;
+public class TestDisplay {
+
+	private JFrame frame;
+	public static Player player;
 
 	/**
 	 * Launch the application.
@@ -22,8 +28,8 @@ public class TestDisplay extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TestDisplay frame = new TestDisplay();
-					frame.setVisible(true);
+					TestDisplay window = new TestDisplay();
+					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -32,33 +38,56 @@ public class TestDisplay extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Create the application.
 	 */
 	public TestDisplay() {
-		Room testRoom = new Room(new File("resources/Rooms/TestRoom.txt"),3,3);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel(){
-			public void paint(Graphics g){
-				Graphics2D g2 = (Graphics2D)g;
-				for(int row = 0;row<3;row++){
-					for(int col = 0;col<3;col++){
-//						g2.drawRect(col*(this.getWidth()/10), this.getHeight()/4+row*3*this.getHeight()/32, this.getWidth()/10, 3*this.getHeight()/32);
-						System.out.println(testRoom.getTile(row, col).getImageLocation());
-						try {
-							g2.drawImage(ImageIO.read(new File(testRoom.getTile(row, col).getImageLocation())), null, row*this.getHeight()/3, col*this.getWidth());
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-					}
-				}
-			}
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		player = new Player("TEST", 150, 500, 6, "resources/Images/player.png");
+		frame = new JFrame();
+		frame.setBounds(300, 50, 800, 900);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false);
+		
+		
+		JPanel panel = new JPanel(){
+//			public void paint(Graphics g){
+//				Graphics2D g2 = (Graphics2D)g;
+//				try {
+//					g2.drawImage(ImageIO.read(new File("resources/Images/health_" + player.getHealth() +  ".png")), null, 25, 10);
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//					System.out.println("Problem reading in health images");
+//				}
+//			}
 		};
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		
+		panel.setPreferredSize(new Dimension(frame.getWidth(), 50));
+		panel.repaint();
+		frame.getContentPane().add(panel, BorderLayout.NORTH);
 		
 		
+		RoomPanel roomPanel = new RoomPanel();
+		roomPanel.loadRoom(new File("resources/Rooms/TestRoom.txt"));
+		roomPanel.repaint();
+		frame.getContentPane().add(roomPanel, BorderLayout.CENTER);
+		
+
+		Timer t = new Timer(17, new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				roomPanel.repaint();
+				System.out.println("heya");
+			}
+			
+		});
+		t.start();
 	}
 
 }

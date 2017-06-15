@@ -16,14 +16,14 @@ public class Enemy extends Character implements Damageable{
 	public Enemy(File f) {
 		super(f);
 		willChase = sc.nextBoolean();sc.nextLine();
+		willPatrol = sc.nextBoolean();sc.nextLine();
 		if(willChase){
 			chaseDistance = sc.nextInt();//sc.nextLine();
 			System.out.println(chaseDistance);
 		}
-		willPatrol = sc.nextBoolean();sc.nextLine();
 		if(willPatrol){
-			patrolRight = sc.nextInt();sc.nextLine();
-			patrolDown = sc.nextInt();sc.nextLine();
+			patrolRight = 100*sc.nextInt();sc.nextLine();
+			patrolDown = 100*sc.nextInt();
 		}
 		
 	}
@@ -61,7 +61,7 @@ public class Enemy extends Character implements Damageable{
 		if(health<1){
 			return "GAHHHH... am ded";
 		}
-		if(willChase && playerDistance <= 100*chaseDistance){
+		if(willChase && playerDistance <= chaseDistance){
 			direction = playerDirection;
 			move();
 		} else if(willPatrol){
@@ -75,9 +75,9 @@ public class Enemy extends Character implements Damageable{
 				direction = NORTH;
 			} else {
 				direction = EAST;
-				patrolCount = 1;
+				patrolCount = 0;
 			}
-			patrolCount++;
+			patrolCount+=speed;
 			move();
 		}
 		return null;

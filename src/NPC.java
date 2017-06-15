@@ -38,7 +38,7 @@ public class NPC extends Character {
 		Character kendall = new Enemy(new File("resources/Characters/TestEnemy.txt"));
 //		System.out.println(kendall.getHitbox().getIntX() + " "+kendall.getHitbox().getIntY());
 //		System.out.println(kendall);
-		for(int i = 0; i < 25; i++){
+		for(int i = 0; i < 100; i++){
 //			System.out.println(eli.update(i, EAST));
 			kendall.update(3, NORTH);
 			System.out.println(kendall.getHitbox().getLocation());
