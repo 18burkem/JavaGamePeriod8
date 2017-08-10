@@ -1,0 +1,9 @@
+Joe Schmoe
+50 500 30 20
+6
+100
+resources/Images/testtile.png
+false
+true
+3
+2
